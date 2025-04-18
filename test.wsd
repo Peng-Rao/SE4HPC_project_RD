@@ -1,0 +1,38 @@
+@startuml
+actor "News Channel" as News
+participant "SustainCity System" as SustainCity
+actor "Urban Manager" as Manager
+participant "Traffic Lights" as Traffic
+participant "Public Transport\nMicroservice" as Transport
+participant "Logging\nSystem" as Logger
+database "Report\nDatabase" as Reports
+
+News -> SustainCity: New Event Notification\n(e.g., concert at Central Park)
+activate SustainCity
+
+SustainCity -> Transport: getScheduleByStreet/Line()
+activate Transport
+Transport --> SustainCity: Current Schedules
+deactivate Transport
+
+SustainCity -> SustainCity: Generate Event Configuration\n(Traffic patterns, PT adjustments)
+SustainCity -> Manager: Propose Event Configuration
+activate Manager
+Manager --> SustainCity: Approval Decision
+deactivate Manager
+
+SustainCity -> Traffic: Apply Event-specific\nLight Timings
+SustainCity -> Transport: Update Schedules\n(New Timetable)
+activate Transport
+Transport --> SustainCity: Update Confirmation
+deactivate Transport
+
+SustainCity -> Logger: Log Action\n(Type3 Approved)
+SustainCity -> Reports: Store Decision\n(Accepted Suggestion)
+
+deactivate SustainCity
+
+... Yearly Reporting ...
+
+Reports -> Citizens: Publish Yearly Report\n(Accepted/Rejected Suggestions)
+@enduml
