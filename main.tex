@@ -67,9 +67,6 @@
             {\Large{\textbf{Requirement Engineering and Design Project:\\ SustainCity \\ V 1.0.1}}}
             \rule{0.95\textwidth}{0.7mm}
             \vspace{1cm}
-            \large{Prof. Elisabetta Di Nitto \\ A.Y. 2024-2025}
-            \vspace{1cm}
-
             \large{Authors: \\ \textbf{Riccardo Donati, Camilo Martínez, Jialiclaudio Huang, Peng Rao}}
 
             \vspace{1cm}
@@ -88,31 +85,104 @@
     \setcounter{page}{1}
     \pagenumbering{arabic}
 
-    \section{The project and project goals}
-    \subsection{Problem Statement}
-    Urban commuting is a major contributor to environmental degradation and climate change due to air pollution and greenhouse gas emissions. To address this issue, the \textbf{SustainCity} project aims to develop a smart traffic management system that optimizes urban mobility through real-time adjustments and long-term strategic planning.
-
-    To reduce the impact of urban commuting, we want to keep it under control with the following types of actions: 
-    \begin{enumerate}
-        \item \textbf{Dynamically adjusts traffic lights (Type1)} based on real-time sensor data to minimize congestion.
-        \item \textbf{Analyzes historical traffic patterns (Type2)} to recommend structural optimizations (e.g., one-way streets, bus schedule adjustments).
-        \item \textbf{Automatically adapts to planned events (Type3)} by preemptively reconfiguring traffic flows and public transport routes.
-        \item \textbf{Provides transparent reporting} to citizens and policymakers on traffic interventions and their environmental benefits.
-    \end{enumerate}
-
-    \subsection{Goal and approach}
-    In this project, we aim to put into practice the concepts learned in the first part of the Software Engineering for HPC course. We will analyze the problem outlined, and document our findings and proposed solutions. Our report will cover the following key aspects.
+    \section{The Project and Project Goals}
+    
+    \subsection{Introduction}
+    Urban commuting represents a significant contributor to environmental degradation and climate change, generating substantial air pollution and greenhouse gas emissions. The \textbf{SustainCity} project addresses this critical challenge through an intelligent software system designed to optimize urban traffic management and public transport operations, thereby reducing transportation's environmental footprint.
+    
+    \subsection{Project Overview}
+    The SustainCity system synthesizes three key data streams:
     \begin{itemize}
-        \item Requirement Analysis: We will identify and extract use cases, functional and non-functional requirements, and domain assumptions based on the problem statement.
-
-        \item Architectural Design: We will define a system architecture using component diagrams and sequence diagrams to illustrate the system’s structure and interactions. Sequence diagrams will highlight how components interact with one another. We will discuss potential critical challenges in our system and propose strategies to address them.
+        \item Real-time traffic sensor measurements
+        \item Public transport timetables
+        \item Event scheduling information
     \end{itemize}
-
+    This integration enables dynamic traffic flow adjustments while proposing sustainable long-term optimizations. The solution leverages existing urban infrastructure combined with automated decision-making algorithms to balance operational efficiency with environmental sustainability.
+    
+    \subsection{Problem Statement}
+    Current urban commuting patterns require mitigation through three coordinated intervention types:
+    \begin{enumerate}
+        \item \textbf{Dynamic Traffic Light Adjustment (Type1)}: Automatically modulate traffic light durations on arterial roads using real-time congestion data. For instance, extending green phases for dominant traffic flows while temporarily restricting cross traffic during peak periods.
+        
+        \item \textbf{Traffic Pattern Optimization (Type2)}: Systematically analyze daily traffic trends to recommend structural improvements including:
+        \begin{itemize}
+            \item One-way road configurations
+            \item Traffic light schedule optimizations
+            \item Public transport timetable synchronization
+        \end{itemize}
+        
+        \item \textbf{Event-Driven Management (Type3)}: Anticipate crowd movements through event schedules (e.g., concerts, sports events) to implement preemptive adjustments in:
+        \begin{itemize}
+            \item Traffic light patterns
+            \item Road access restrictions
+            \item Public transport capacity allocation
+        \end{itemize}
+    \end{enumerate}
+    
+    \subsection{Supporting Infrastructure}
+    The system architecture integrates three core components:
+    \begin{itemize}
+        \item \textbf{Traffic Sensor Network}: Event-driven sensors publishing intersection wait times via message bus (AMQP/MQTT)
+        \item \textbf{Public Transport API}: Microservice providing timetable data through:
+        \begin{itemize}
+            \item \texttt{getScheduleByStreet(streetName)}
+            \item \texttt{getScheduleByLine(lineNumber)}
+        \end{itemize}
+        \item \textbf{Event Feed}: RSS/API integration with municipal event calendars
+    \end{itemize}
+    
     \subsection{Stakeholders}
     \begin{itemize}
-        \item \textbf{Urban Traffic Managers}: Approve and implement Type2 \& Type3 recommendations.
-        \item \textbf{Public Transport Operators}: Adjust schedules based on system insights.
-        \item \textbf{Citizens}: Access reports to understand traffic policies and environmental impact.
+        \item \textbf{Urban Traffic Managers}: Authorize and implement Type2/3 recommendations through the city's traffic control system
+        \item \textbf{Transport Operators}: Adjust fleet schedules based on system-generated predictive models
+        \item \textbf{Citizens}: Access transparent reporting on traffic policies and environmental impact metrics
+        \item \textbf{Event Organizers}: Provide scheduling data through municipal coordination channels
+    \end{itemize}
+    
+    \subsection{Technical Objectives}
+    The project implementation focuses on three primary deliverables:
+    \begin{itemize}
+        \item \textbf{Real-Time Control System}:
+        \begin{itemize}
+            \item Automated execution of Type1 actions
+            \item Comprehensive action logging for audit purposes
+        \end{itemize}
+        
+        \item \textbf{Decision Support Module}:
+        \begin{itemize}
+            \item Type2: Generate long-term optimization proposals
+            \item Type3: Create event-specific configuration plans
+        \end{itemize}
+        
+        \item \textbf{Public Reporting Interface}:
+        \begin{itemize}
+            \item Daily metrics: Average traffic flow + Type1 interventions
+            \item Annual reviews: Implemented vs. rejected proposals with emissions impact analysis
+        \end{itemize}
+    \end{itemize}
+    
+    \subsection{Methodological Approach}
+    This project applies software engineering principles from the HPC course through:
+    \begin{itemize}
+        \item \textbf{Requirement Engineering}: Formal specification of:
+        \begin{itemize}
+            \item Use cases with actor interactions
+            \item Functional \& non-functional requirements
+            \item Domain constraints and assumptions
+        \end{itemize}
+        
+        \item \textbf{Architectural Design}: Structural decomposition using:
+        \begin{itemize}
+            \item Component diagrams showing system modules
+            \item Sequence diagrams detailing critical interactions
+        \end{itemize}
+        
+        \item \textbf{Critical Analysis}: Identification and mitigation strategies for:
+        \begin{itemize}
+            \item Real-time system latency challenges
+            \item Data integration complexity
+            \item Fail-safe mechanism requirements
+        \end{itemize}
     \end{itemize}
 
     \section{Requirement analysis}
@@ -136,12 +206,16 @@
     Assists in traffic analysis and optimization planning.
     \item \textbf {News Channel}
     Publishes real-time event announcements that may impact traffic.
-    \item \textbf{Events}
-    Events represent significant occurrences (e.g., concerts, sports events, festivals) that influence traffic flow and public transport in the city.
     \end{itemize}
     
     \subsection{Use cases}
-    \subsubsection{Type1}
+
+    This section describes three use cases, each corresponding to one of the system's defined action types. Each use case includes key elements such as the involved actors, flow of events, exceptions, and special requirements, offering a detailed view of how the system manages various operational scenarios.
+    
+    \subsubsection{Modify Traffic Lights (Type1)}
+
+    The Modify Traffic Lights use case enables real-time adjustment of traffic signal timings based on live congestion data from the Traffic Sensor System. When traffic accumulation is detected, the system generates and applies new light configurations to improve flow. 
+    
     \begin{table}[!htp]
         \centering
         \begin{tabular}{@{} l p{23em} @{}}
@@ -243,75 +317,139 @@
             \bottomrule
         \end{tabular}
     \end{table}
-    \subsection{Domain assumptions}
-    \begin{enumerate}
-        \item The sensors present accurate data.
-        \item The microservice is accessible at all times.
-        \item The microservice is always updated.
-        \item Public transport is always reasonably on time.
-        \item The news channel publishes the news early enough to have time for the decision making process.
-        \item The news channel provides enough information for the decision making process to take place.
-        \item The urban area managers make decisions quickly enough to ensure changes align with the ongoing situation.
-        \item The system controls traffic lights in real time.
-        \item Users and drivers receive accurate notifications.
-    \end{enumerate}
+    
+    \subsection{Domain Assumptions}
+    The system design relies on the following foundational premises:
+    
+    \paragraph{Data Quality \& Infrastructure}
+    \begin{itemize}
+        \item \textbf{Sensor Accuracy}: Traffic sensors maintain ±2\% measurement accuracy for vehicle wait times under normal operating conditions
+        \item \textbf{Message Bus Reliability}: The event bus (AMQP/MQTT) guarantees at-least-once delivery for sensor data with $\le$ 1s latency
+        \item \textbf{API Stability}: Public transport microservice maintains backward\-compatible API versions for $\ge$ 6 months after updates
+    \end{itemize}
+    
+    \paragraph{System Availability}
+    \begin{itemize}
+        \item \textbf{Microservice Uptime}: Critical external services (transport API, event feed) maintain 99.9\% monthly availability
+        \item \textbf{Network Continuity}: Municipal networks provide $\ge$ 100Mbps bandwidth for real-time control commands
+        \item \textbf{Power Infrastructure}: Traffic light systems have redundant power supplies with $\le$ 5s failover time
+    \end{itemize}
+    
+    \paragraph{Stakeholder Behavior}
+    \begin{itemize}
+        \item \textbf{Manager Responsiveness}: Urban managers review/reject Type2/3 proposals within 48h (95\% of cases)
+        \item \textbf{Event Reporting}: Venues submit event details (location, time, capacity) $\ge$ 72h before start time
+        \item \textbf{Transport Punctuality}: Public transport adheres to schedules with $\le$ 5min deviation in 90\% of daily trips
+    \end{itemize}
+    
+    \paragraph{Operational Context}
+    \begin{itemize}
+        \item \textbf{Traffic Light Control}: Municipal infrastructure accepts API-based phase adjustments within 30s latency
+        \item \textbf{Event Impact Window}: Crowd-generated congestion remains localized within 1km of event venues
+        \item \textbf{Reporting Latency}: Citizen-facing dashboards reflect data with $\le$ 15min delay for time-sensitive metrics
+    \end{itemize}
+    
+    \noindent\textit{These assumptions form boundary conditions for system operation. Violations would trigger fallback procedures outlined in the fault tolerance specification.}
+    
     \subsection{Requirements}
-    \subsubsection{Functional requirements}
-    \paragraph{Type 1:}
-    \begin{enumerate}
-        \item The system shall receive real-time traffic data from the Traffic Sensor System.
-        \item The system shall analyze traffic flow patterns to detect congestion.
-        \item The system shall modify traffic light durations dynamically based on traffic flow. For instance, if traffic on a specific road is significantly higher than on intersecting roads, the system shall extend the green light duration for the busy road and extend the red light duration for the other roads.
-        \item The system shall log all traffic light modifications on a daily basis.
-        \item The system shall generate daily reports summarizing traffic flow and
-            Type 1 actions taken, including any changes to light durations.
-        \item The system shall make traffic reports accessible to citizens via a
-            digital platform (e.g., website or mobile app).
-    \end{enumerate}
+    \subsubsection{Functional Requirements}
+    
+    \paragraph{Type 1: Real-Time Traffic Control}
+    \begin{itemize}
+        \item \textbf{Data Acquisition:} Interface with traffic sensor network to ingest real-time intersection wait times via message bus
+        \item \textbf{Congestion Detection:} Analyze traffic flow patterns using sliding window algorithms (15s intervals) to identify bottlenecks
+        \item \textbf{Adaptive Signal Control:} Dynamically adjust traffic light phases based on:
+        \begin{itemize}
+            \item Relative traffic density across connected roads
+            \item Priority thresholds (e.g., +25\% volume triggers extended green phase)
+            \item Minimum/maximum phase duration constraints
+        \end{itemize}
+        \item \textbf{Action Logging:} Maintain tamper-evident logs of all signal adjustments with timestamp, location, and duration changes
+        \item \textbf{Public Reporting:} Generate daily PDF/JSON reports containing:
+        \begin{itemize}
+            \item Hourly traffic flow averages per arterial road
+            \item Summary of signal interventions (frequency, duration, locations)
+        \end{itemize}
+    \end{itemize}
+    
+    \paragraph{Type 2: Strategic Traffic Optimization}
+    \begin{itemize}
+        \item \textbf{Historical Analysis:} Process 30-day traffic patterns using time-series clustering to identify recurrent congestion hotspots
+        \item \textbf{Configuration Proposals:} Generate optimization plans including:
+        \begin{itemize}
+            \item One-way street conversions (with estimated flow improvement \%)
+            \item Traffic light timing presets for different day periods
+            \item Public transport schedule adjustments (±15min windows)
+        \end{itemize}
+        \item \textbf{Approval Workflow:} Provide web interface for urban managers to:
+        \begin{itemize}
+            \item Review proposals with cost/benefit projections
+            \item Approve/reject with mandatory justification comments
+        \end{itemize}
+        \item \textbf{Decision Audit:} Maintain versioned records of all proposals and responses
+    \end{itemize}
+    
+    \paragraph{Type 3: Event-Driven Management}
+    \begin{itemize}
+        \item \textbf{Event Ingestion:} Subscribe to municipal event calendars via iCal/RSS feeds
+        \item \textbf{Impact Simulation:} Predict traffic disruptions using:
+        \begin{itemize}
+            \item Venue capacity data
+            \item Historical attendance patterns
+            \item Public transport access points
+        \end{itemize}
+        \item \textbf{Mitigation Planning:} Auto-generate contingency plans featuring:
+        \begin{itemize}
+            \item Temporary road closures/reroutes
+            \item Public transport capacity boosts (+30\% vehicles)
+            \item Parking restriction zones
+        \end{itemize}
+        \item \textbf{Approval Chain:} Require multi-level authorization for major changes:
+        \begin{itemize}
+            \item Traffic manager (road modifications)
+            \item Transit director (schedule changes)
+        \end{itemize}
+    \end{itemize}
+    
+    \subsubsection{Non-Functional Requirements}
+    \begin{itemize}
+        \item \textbf{Performance:}
+        \begin{itemize}
+            \item Process sensor updates within 500ms (p95 latency)
+            \item Execute signal adjustments within 2s of decision trigger
+            \item Support 1M+ daily sensor events at peak load
+        \end{itemize}
+        
+        \item \textbf{Availability:}
+        \begin{itemize}
+            \item 99.99\% uptime for critical control subsystems
+            \item Hot standby redundancy for signal adjustment module
+        \end{itemize}
+        
+        \item \textbf{Scalability:}
+        \begin{itemize}
+            \item Linear horizontal scaling for data ingestion layer
+            \item Support city expansion up to 5000 intersections
+        \end{itemize}
+        
+        \item \textbf{Security:}
+        \begin{itemize}
+            \item RBAC with OAuth2.0 for management interfaces
+            \item End-to-end encryption for all control commands
+            \item Annual penetration testing requirements
+        \end{itemize}
+        
+        \item \textbf{Usability:}
+        \begin{itemize}
+            \item Web dashboard with SLA of 2s page load time
+            \item Multi-language support for citizen reports
+            \item A11y-compliant interfaces (WCAG 2.1 AA)
+        \end{itemize}
+    \end{itemize}
+    
+    \noindent\textit{These requirements directly support the project's three core intervention types while addressing operational constraints identified in stakeholder analysis.}
 
-    \paragraph{Type 2:}
-    \begin{enumerate}
-        \item The system shall collect and analyze historical traffic data to identify
-            trends and recurring congestion patterns.
-
-        \item The system shall propose optimizations for one-way street configurations
-            where applicable to improve traffic flow.
-
-        \item The system shall propose optimizations for traffic light configurations.
-
-        \item The system shall propose optimizations for public transport schedules
-            (e.g., adding buses or adjusting bus frequencies during peak times).
-
-        \item The system shall allow Urban Area Managers to approve or reject suggested
-            optimizations.
-
-        \item The system shall log all accepted and rejected optimization proposals.
-    \end{enumerate}
-    \paragraph{Type 3:}
-    \begin{enumerate}
-        \item The system shall receive event announcements from the News Channel.
-
-        \item The system shall analyze the impact of each event based on location,
-            time, and expected attendance to assess the potential effect on traffic
-            and public transport.
-
-        \item The system shall propose event-specific traffic and public transport adjustments (e.g., rerouting roads, adjusting public transport schedules).
-
-        \item The system shall allow Urban Area Managers to approve or reject event-specific
-            adjustments.
-
-        \item The system shall log all accepted and rejected event-based changes.
-    \end{enumerate}
-    \subsubsection{Non-functional requirements}
-    \begin{enumerate}
-        \item The system shall process and analyze real-time traffic data within 10 seconds of receiving it.
-        \item The system shall update traffic light configurations within 30 seconds of detecting congestion.
-        \item The system shall be operational 24/7.
-        \item The system shall support data input from at least 500 traffic sensors simultaneously.
-        \item The system shall handle up to 50 event announcements per day without performance degradation.
-        \item The system shall ensure that only authorized Urban Area Managers can approve or reject suggestions.
-
-    \end{enumerate}
+    \newpage
     \section{Design}
     \subsection{General description of the architecture}
     \subsection{Sequence diagrams}
@@ -320,28 +458,36 @@
     \begin{enumerate}
         \item Participants
         \begin{itemize}
-        \item Traffic Sensor System (TSS): Represents the sensor infrastructure that collects real-time traffic data.  
-        \item Traffic Management System (TMS): It is the central system that processes the data from the sensors. It is responsible for analyzing traffic flow, detecting congestion, and deciding actions for adjusting traffic light timings. It also manages some statistics for reporting purposes.
-        \item Traffic Light Controller (TLC): It is the controller for managing the traffic lights. Once the TMS determines if an action of adjusting traffic light durations is needed, it sends instructions to the TLC. The controller then updates the lights configuration and confirms the update back.
-        \item Logging Service: It is responsible for logging any changes made to traffic light durations.
-        \item Report Generator: It fetches the necessary logs and stats from the TMS and generates the reports. This includes daily statistics on traffic flow and the actions taken by the system.
-        \item Citizen Platform: Provides access to traffic reports for citizens.
+        \item \textbf{Traffic Sensor System (TSS):} Represents the sensor infrastructure that collects real-time traffic data.  
+        \item \textbf{Traffic Management System (TMS):} It is the central system that processes the data from the sensors. It is responsible for analyzing traffic flow, detecting congestion, and deciding actions for adjusting traffic light timings. It also manages some statistics for reporting purposes.
+        \item \textbf{Traffic Light Controller (TLC):} It is the controller for managing the traffic lights. Once the TMS determines if an action of adjusting traffic light durations is needed, it sends instructions to the TLC. The controller then updates the lights configuration and confirms the update back.
+        \item \textbf{Logging Service:} It is responsible for logging any changes made to traffic light durations.
+        \item \textbf{Report Generator:} It fetches the necessary logs and stats from the TMS and generates the reports. This includes daily statistics on traffic flow and the actions taken by the system.
+        \item \textbf{Citizen Platform:} Provides access to traffic reports for citizens.
     \end{itemize}
 
     \item Interactions
         \begin{itemize}
-        \item publishTrafficData(): The Traffic Sensor System sends real-time traffic data to the Traffic Management System (TMS).
-        \item analyzeTrafficFlow(): The TMS processes the received traffic data. This step involves analyzing the flow of traffic, calculating statistics like vehicle counts, wait times, and traffic density.
-        \item evaluateCongestionPatterns(): After analyzing traffic flow, the TMS evaluates the data to detect congestion patterns. For example, if the traffic density exceeds a predefined threshold, the system decides whether action is needed, such as extending green lights.
-        \item updateLightConfig(roadId, newConfig): Based on the congestion patterns, the TMS instructs the Traffic Light Controller (TLC) to update the duration of the traffic lights on specific roads. For example, it may decide to extend the green light on a busy road.
-        \item confirmUpdate(): The TLC confirms that the traffic light timings have been updated successfully.
-        \item logAction(updatedDetails): The TMS logs the change details to the Logging Service.
-        \item fetchLogs(): The Report Generator fetches the logs from the Logging Service to gather all recorded actions for that day.
-        \item getTrafficStats(): The Report Generator retrieves the necessary traffic statistics from the TMS. 
-        \item generateDailyStats(): The Report Generator processes the logs and stats to generate the daily traffic report about the average traffic flow on the main roads.
-        \item displayDailyReport(): The Report Generator publishes the daily report to the Citizen Platform, where it is made available for public viewing.
+        \item \textbf{publishTrafficData():} The Traffic Sensor System sends real-time traffic data to the Traffic Management System (TMS).
+        \item \textbf{analyzeTrafficFlow():} The TMS processes the received traffic data. This step involves analyzing the flow of traffic, calculating statistics like vehicle counts, wait times, and traffic density.
+        \item \textbf{evaluateCongestionPatterns():} After analyzing traffic flow, the TMS evaluates the data to detect congestion patterns. For example, if the traffic density exceeds a predefined threshold, the system decides whether action is needed, such as extending green lights.
+        \item \textbf{updateLightConfig(roadId, newConfig):} Based on the congestion patterns, the TMS instructs the Traffic Light Controller (TLC) to update the duration of the traffic lights on specific roads. For example, it may decide to extend the green light on a busy road.
+        \item \textbf{confirmUpdate():} The TLC confirms that the traffic light timings have been updated successfully.
+        \item \textbf{logAction(updatedDetails):} The TMS logs the change details to the Logging Service.
+        \item \textbf{fetchLogs():} The Report Generator fetches the logs from the Logging Service to gather all recorded actions for that day.
+        \item \textbf{getTrafficStats():} The Report Generator retrieves the necessary traffic statistics from the TMS. 
+        \item \textbf{generateDailyStats():} The Report Generator processes the logs and stats to generate the daily traffic report about the average traffic flow on the main roads.
+        \item \textbf{displayDailyReport():} The Report Generator publishes the daily report to the Citizen Platform, where it is made available for public viewing.
     \end{itemize}
     \end{enumerate}
+
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.9\textwidth]{figures/sequence-diagram-type1.pdf}
+        \caption{Type1 sequence diagram.}
+        \label{fig:sequence-diagram-type1}
+    \end{figure}
+    
     \subsubsection{Type2}
 
     \newpage
@@ -375,52 +521,74 @@
         \item \textbf{Apply Traffic Light Configurations}. Traffic Management System $\rightarrow$ City Infrastructure: Sends ApplyTrafficLightConfig(config).
         \item \textbf{Log Action and Update Reports}. Traffic Manager System $\rightarrow$ Logging Service: Sends LogType3Action(config, "Applied"). Records the action for yearly reports and citizen notifications.
     \end{enumerate}
-    
+
     \subsection{Critical Points and Design Decisions}
-    This section outlines the key challenges faced during the system design and the corresponding decisions to address them.    
+    
+    The SustainCity system's complexity and real-time demands introduce several critical challenges. Below are the key considerations and corresponding design resolutions:
+    
     \begin{itemize}
-        \item \textbf{Real-Time Processing Latency}
+        \item \textbf{Real-Time Data Processing}
         \begin{itemize}
-            \item \textit{Criticality}: Type1 actions require immediate traffic light adjustments. Delays could worsen congestion.
-            \item \textit{Decision}: Implemented Apache Kafka for stream processing and co-located edge servers near sensors.
-            \item \textit{Trade-off}: Increased infrastructure costs but ensured sub-second response times.
+            \item \textbf{Criticality}: Sensor data must be processed in real time to adjust traffic lights (Type1 actions) without latency
+            \item \textbf{Design Decisions}: 
+            \begin{itemize}
+                \item Event-driven architecture using Apache Kafka for high-throughput sensor data ingestion
+                \item \textbf{HPC-optimized stream processing} with Apache Flink, leveraging parallel computing for multi-intersection analysis
+                \item GPU-accelerated traffic prediction models for congestion threshold calculations
+            \end{itemize}
         \end{itemize}
-        
-        \item \textbf{Legacy System Integration}
+    
+        \item \textbf{System Reliability}
         \begin{itemize}
-            \item \textit{Criticality}: Heterogeneous protocols from sensors (MQTT), public transport APIs (REST), and news feeds (RSS).
-            \item \textit{Decision}: Designed an API Gateway with protocol adapters using the Ambassador pattern.
-            \item \textit{Trade-off}: Added development complexity but enabled backward compatibility.
+            \item \textbf{Criticality}: Downtime could disrupt traffic management and public safety
+            \item \textbf{Design Decisions}:
+            \begin{itemize}
+                \item \textbf{Distributed HPC framework} using Kubernetes with MPI integration for fault-tolerant parallel processing
+                \item \textbf{Data replicatio}n across HPC nodes using Hadoop Distributed File System (HDFS)
+                \item Cloud auto-scaling with AWS Batch for compute-intensive tasks
+            \end{itemize}
         \end{itemize}
-        
-        \item \textbf{Data Volume Management}
+    
+        \item \textbf{HPC Workload Management}
         \begin{itemize}
-            \item \textit{Criticality}: 10,000+ sensors generating 2TB/day of traffic data.
-            \item \textit{Decision}: Adopted a microservices architecture with Kubernetes auto-scaling.
-            \item \textit{Trade-off}: Introduced network overhead but achieved 99.9\% uptime during peak loads.
+            \item \textbf{Criticality}: Balancing compute-intensive and data-intensive workloads
+            \item \textbf{Design Decisions}:
+            \begin{itemize}
+                \item \textbf{Hybrid HPC architecture}: 
+                \begin{itemize}
+                    \item Compute nodes with high-core CPUs for traffic simulations (Type2/Type3)
+                    \item Data nodes with NVMe storage for real-time sensor processing (Type1)
+                \end{itemize}
+                \item \textbf{Dynamic resource partitioning} using Slurm workload manager
+                \item \textbf{In-memory computing} with Apache Ignite for frequent-access traffic patterns
+            \end{itemize}
         \end{itemize}
-        
-        \item \textbf{Traffic Control Safety}
+    
+        \item \textbf{Large-Scale Data Processing}
         \begin{itemize}
-            \item \textit{Criticality}: Erroneous traffic light changes could cause accidents.
-            \item \textit{Decision}: Implemented a two-phase commit protocol with rollback capability.
-            \item \textit{Trade-off}: Reduced system throughput by 15\% but ensured fail-safe operations.
+            \item \textbf{Criticality}: Annual report generation requires petabyte-scale historical analysis
+            \item \textbf{Design Decisions}:
+            \begin{itemize}
+                \item \textbf{MapReduce implementation} for distributed aggregation of yearly traffic data
+                \item \textbf{Columnar storage} using Parquet format for efficient archival/retrieval
+                \item \textbf{Federated learning} across edge nodes to reduce central system load
+            \end{itemize}
         \end{itemize}
-        
-        \item \textbf{Event-Driven Configuration Accuracy (Type3)}
+    
+        \item \textbf{Complex Traffic Simulations}
         \begin{itemize}
-            \item \textit{Criticality}: Incorrect event crowd estimates lead to inadequate traffic plans.
-            \item \textit{Decision}: Integrated machine learning models with historical attendance data.
-            \item \textit{Trade-off}: Increased processing time by 200ms per prediction but improved accuracy by 40\%.
-        \end{itemize}
-        
-        \item \textbf{Citizen Report Accessibility}
-        \begin{itemize}
-            \item \textit{Criticality}: High concurrent requests during rush hours could crash servers.
-            \item \textit{Decision}: Deployed Redis caching with LRU eviction for daily reports.
-            \item \textit{Trade-off}: Reports are delayed by 5 minutes but handle 10,000+ concurrent users.
+            \item \textbf{Criticality}: City-wide simulations require massive parallel computing
+            \item \textbf{Design Decisions}:
+            \begin{itemize}
+                \item \textbf{MPI-based parallelization} of traffic flow algorithms across HPC clusters
+                \item \textbf{CUDA-optimized microsimulations} for individual vehicle behavior modeling
+                \item \textbf{Approximate computing} techniques for near-real-time scenario testing
+            \end{itemize}
         \end{itemize}
     \end{itemize}
+    
+    The architecture combines HPC paradigms with cloud-native design, using MPI/OpenMP for compute-intensive tasks (traffic simulations, ML models) and Spark/Flink for data-intensive operations (sensor streams, reporting). \textbf{Hybrid HPC scheduling} ensures optimal resource allocation between batch-oriented Type2 analyses and real-time Type1 adjustments.
+    
     \clearpage
     \printbibliography
     [heading=bibintoc, title = {References}]
